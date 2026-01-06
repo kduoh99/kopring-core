@@ -1,0 +1,44 @@
+spring:
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}
+
+  datasource:
+    url: ${spring.datasource.url}
+    username: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    driver-class-name: ${spring.datasource.driver-class-name}
+
+  data:
+    redis:
+      host: ${spring.redis.host}
+      port: ${spring.redis.port}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    open-in-view: false
+
+logging:
+  level:
+    org.hibernate.sql: debug
+    org.hibernate.type: trace
+
+jwt:
+  secret: ${jwt.secret}
+  expire:
+    access: ${jwt.expire.access}
+    refresh: ${jwt.expire.refresh}
+
+oauth:
+  google:
+    client-id: ${oauth.google.client-id}
+    client-secret: ${oauth.google.client-secret}
+    redirect-uri: ${oauth.google.redirect-uri}
+
+  kakao:
+    client-id: ${oauth.kakao.client-id}
+    redirect-uri: ${oauth.kakao.redirect-uri}
