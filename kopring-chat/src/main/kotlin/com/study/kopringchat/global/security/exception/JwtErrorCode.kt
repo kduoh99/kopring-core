@@ -1,4 +1,4 @@
-package com.study.kopringchat.global.auth.exception
+package com.study.kopringchat.global.security.exception
 
 import com.study.kopringchat.global.exception.CustomErrorCode
 import org.springframework.http.HttpStatus

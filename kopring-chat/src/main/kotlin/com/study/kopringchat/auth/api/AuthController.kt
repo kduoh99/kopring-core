@@ -3,7 +3,7 @@ package com.study.kopringchat.auth.api
 import com.study.kopringchat.auth.api.dto.request.LoginRequest
 import com.study.kopringchat.auth.api.dto.request.RefreshRequest
 import com.study.kopringchat.auth.application.AuthService
-import com.study.kopringchat.global.auth.jwt.JwtInfo
+import com.study.kopringchat.global.security.jwt.JwtInfo
 import com.study.kopringchat.global.common.BaseResponse
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus

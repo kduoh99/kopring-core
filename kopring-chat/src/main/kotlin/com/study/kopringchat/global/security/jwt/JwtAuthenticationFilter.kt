@@ -1,6 +1,6 @@
-package com.study.kopringchat.global.auth.jwt
+package com.study.kopringchat.global.security.jwt
 
-import com.study.kopringchat.global.auth.exception.JwtErrorCode
+import com.study.kopringchat.global.security.exception.JwtErrorCode
 import com.study.kopringchat.global.exception.CustomException
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest

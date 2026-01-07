@@ -1,4 +1,4 @@
-package com.study.kopringchat.global.auth.jwt
+package com.study.kopringchat.global.security.jwt
 
 import com.study.kopringchat.global.exception.CustomException
 import com.study.kopringchat.member.domain.repository.MemberRepository

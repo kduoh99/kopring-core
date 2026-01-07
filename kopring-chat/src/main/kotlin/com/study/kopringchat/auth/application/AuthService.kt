@@ -3,9 +3,9 @@ package com.study.kopringchat.auth.application
 import com.study.kopringchat.auth.api.dto.request.LoginRequest
 import com.study.kopringchat.auth.api.dto.request.RefreshRequest
 import com.study.kopringchat.auth.exception.AuthErrorCode
-import com.study.kopringchat.global.auth.exception.JwtErrorCode
-import com.study.kopringchat.global.auth.jwt.JwtInfo
-import com.study.kopringchat.global.auth.jwt.JwtUtils
+import com.study.kopringchat.global.security.exception.JwtErrorCode
+import com.study.kopringchat.global.security.jwt.JwtInfo
+import com.study.kopringchat.global.security.jwt.JwtUtils
 import com.study.kopringchat.global.exception.CustomException
 import com.study.kopringchat.member.domain.repository.MemberRepository
 import com.study.kopringchat.member.exception.MemberErrorCode

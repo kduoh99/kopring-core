@@ -1,8 +1,8 @@
 package com.study.kopringchat.global.config
 
-import com.study.kopringchat.global.auth.exception.JwtErrorCode
-import com.study.kopringchat.global.auth.exception.JwtExceptionFilter
-import com.study.kopringchat.global.auth.jwt.JwtAuthenticationFilter
+import com.study.kopringchat.global.security.exception.JwtErrorCode
+import com.study.kopringchat.global.security.exception.JwtExceptionFilter
+import com.study.kopringchat.global.security.jwt.JwtAuthenticationFilter
 import com.study.kopringchat.global.exception.ErrorResponse
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

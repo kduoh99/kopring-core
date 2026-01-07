@@ -2,7 +2,7 @@ package com.study.kopringchat.auth.api
 
 import com.study.kopringchat.auth.api.dto.request.LoginRequest
 import com.study.kopringchat.auth.api.dto.request.RefreshRequest
-import com.study.kopringchat.global.auth.jwt.JwtInfo
+import com.study.kopringchat.global.security.jwt.JwtInfo
 import com.study.kopringchat.global.common.BaseResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
