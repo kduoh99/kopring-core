@@ -39,7 +39,7 @@ class AuthService(
 
         redisTemplate.opsForValue().set(
             "refreshToken:${member.email}",
-            jwtInfo.refreshToken,
+            jwtUtils.getToken(jwtInfo.refreshToken),
             refreshTokenExpire,
             TimeUnit.MILLISECONDS
         )
@@ -58,7 +58,7 @@ class AuthService(
         val email = jwtUtils.getUsername(token)
 
         val savedToken = redisTemplate.opsForValue().get("refreshToken:$email")
-        if (savedToken == null || jwtUtils.getToken(savedToken) != token) {
+        if (savedToken == null || savedToken != token) {
             throw CustomException(JwtErrorCode.JWT_INVALID)
         }
 
