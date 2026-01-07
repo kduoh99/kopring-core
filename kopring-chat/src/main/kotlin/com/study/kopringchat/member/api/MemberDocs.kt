@@ -15,6 +15,7 @@ interface MemberDocs {
 
     @Operation(
         summary = "회원가입",
+        security = [],
         description = "새로운 회원을 등록합니다."
     )
     @ApiResponse(
