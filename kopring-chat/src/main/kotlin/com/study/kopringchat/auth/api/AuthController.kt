@@ -1,6 +1,7 @@
 package com.study.kopringchat.auth.api
 
 import com.study.kopringchat.auth.api.dto.request.LoginRequest
+import com.study.kopringchat.auth.api.dto.request.RefreshRequest
 import com.study.kopringchat.auth.application.AuthService
 import com.study.kopringchat.global.auth.jwt.JwtInfo
 import com.study.kopringchat.global.common.BaseResponse
@@ -19,12 +20,19 @@ class AuthController(
 
     @PostMapping("/login")
     override fun login(@Valid @RequestBody request: LoginRequest): BaseResponse<JwtInfo> {
-        val jwtInfo = authService.login(request)
-
         return BaseResponse(
             status = HttpStatus.OK,
             message = "로그인 성공",
-            data = jwtInfo
+            data = authService.login(request)
+        )
+    }
+
+    @PostMapping("/refresh")
+    override fun refresh(@Valid @RequestBody request: RefreshRequest): BaseResponse<String> {
+        return BaseResponse(
+            status = HttpStatus.OK,
+            message = "토큰 재발급 성공",
+            data = authService.refreshToken(request)
         )
     }
 }

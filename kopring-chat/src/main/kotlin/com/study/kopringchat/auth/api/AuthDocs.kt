@@ -1,6 +1,7 @@
 package com.study.kopringchat.auth.api
 
 import com.study.kopringchat.auth.api.dto.request.LoginRequest
+import com.study.kopringchat.auth.api.dto.request.RefreshRequest
 import com.study.kopringchat.global.auth.jwt.JwtInfo
 import com.study.kopringchat.global.common.BaseResponse
 import io.swagger.v3.oas.annotations.Operation
@@ -59,4 +60,46 @@ interface AuthDocs {
         )
         request: LoginRequest
     ): BaseResponse<JwtInfo>
+
+    @Operation(
+        summary = "토큰 재발급",
+        description = "리프레시 토큰을 사용하여 새로운 액세스 토큰을 발급받습니다."
+    )
+    @ApiResponse(
+        responseCode = "200",
+        description = "토큰 재발급 성공",
+        content = [Content(
+            mediaType = "application/json",
+            schema = Schema(implementation = BaseResponse::class),
+            examples = [ExampleObject(
+                name = "토큰 재발급 성공 응답 예시",
+                value = """
+                {
+                    "status": 200,
+                    "message": "토큰 재발급 성공",
+                    "data": "Bearer ey..."
+                }
+                """
+            )]
+        )]
+    )
+    fun refresh(
+        @RequestBody(
+            required = true,
+            description = "토큰 재발급 요청 DTO",
+            content = [Content(
+                mediaType = "application/json",
+                schema = Schema(implementation = RefreshRequest::class),
+                examples = [ExampleObject(
+                    name = "토큰 재발급 요청 예시",
+                    value = """
+                    {
+                      "refreshToken": "Bearer ey..."
+                    }
+                    """
+                )]
+            )]
+        )
+        request: RefreshRequest
+    ): BaseResponse<String>
 }

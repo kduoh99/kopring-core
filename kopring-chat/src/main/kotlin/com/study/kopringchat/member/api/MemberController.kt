@@ -18,12 +18,10 @@ class MemberController(
 
     @PostMapping("/register")
     override fun register(@Valid @RequestBody request: RegisterMemberRequest): BaseResponse<Long> {
-        val memberId = memberService.registerMember(request)
-
         return BaseResponse(
             status = HttpStatus.CREATED,
             message = "회원가입 성공",
-            data = memberId
+            data = memberService.registerMember(request)
         )
     }
 }
