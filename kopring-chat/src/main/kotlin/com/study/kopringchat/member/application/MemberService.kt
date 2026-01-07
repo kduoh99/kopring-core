@@ -2,6 +2,8 @@ package com.study.kopringchat.member.application
 
 import com.study.kopringchat.global.exception.CustomException
 import com.study.kopringchat.member.api.dto.request.RegisterMemberRequest
+import com.study.kopringchat.member.api.dto.response.FindMembersResponse
+import com.study.kopringchat.member.api.dto.response.toFindMembersResponse
 import com.study.kopringchat.member.domain.Member
 import com.study.kopringchat.member.domain.repository.MemberRepository
 import com.study.kopringchat.member.exception.MemberErrorCode
@@ -28,5 +30,10 @@ class MemberService(
         )
 
         return memberRepository.save(member).id!!
+    }
+
+    fun findMembers(): List<FindMembersResponse> {
+        return memberRepository.findAll()
+            .map { it.toFindMembersResponse() }
     }
 }

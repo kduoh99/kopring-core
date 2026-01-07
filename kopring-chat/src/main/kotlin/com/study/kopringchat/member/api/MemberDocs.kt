@@ -2,6 +2,7 @@ package com.study.kopringchat.member.api
 
 import com.study.kopringchat.global.common.BaseResponse
 import com.study.kopringchat.member.api.dto.request.RegisterMemberRequest
+import com.study.kopringchat.member.api.dto.response.FindMembersResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.ExampleObject
@@ -57,4 +58,39 @@ interface MemberDocs {
         )
         request: RegisterMemberRequest
     ): BaseResponse<Long>
+
+    @Operation(
+        summary = "회원 목록 조회",
+        description = "서비스에 가입된 모든 회원 목록을 조회합니다."
+    )
+    @ApiResponse(
+        responseCode = "200",
+        description = "회원 목록 조회 성공",
+        content = [Content(
+            mediaType = "application/json",
+            schema = Schema(implementation = BaseResponse::class),
+            examples = [ExampleObject(
+                name = "회원 목록 조회 성공 응답 예시",
+                value = """
+                {
+                    "status": 200,
+                    "message": "회원 목록 조회 성공",
+                    "data": [
+                        {
+                            "memberId": 1,
+                            "name": "홍길동",
+                            "email": "test@example.com"
+                        },
+                        {
+                            "memberId": 2,
+                            "name": "김철수",
+                            "email": "test99@example.com"
+                        }
+                    ]
+                }
+                """
+            )]
+        )]
+    )
+    fun findMembers(): BaseResponse<List<FindMembersResponse>>
 }
