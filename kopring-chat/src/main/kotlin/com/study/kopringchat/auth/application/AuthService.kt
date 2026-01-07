@@ -14,6 +14,7 @@ import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.Instant
 import java.util.concurrent.TimeUnit
 
 @Service
@@ -45,6 +46,25 @@ class AuthService(
         )
 
         return jwtInfo
+    }
+
+    fun logout(accessToken: String) {
+        val token = jwtUtils.getToken(accessToken)
+
+        val email = jwtUtils.getUsername(token)
+        redisTemplate.delete("refreshToken:$email")
+
+        val expiration = jwtUtils.getExpiration(token)
+        val remainTime = expiration - Instant.now().toEpochMilli()
+
+        if (remainTime > 0) {
+            redisTemplate.opsForValue().set(
+                "blacklist:$token",
+                "logout",
+                remainTime,
+                TimeUnit.MILLISECONDS
+            )
+        }
     }
 
     fun refreshToken(request: RefreshRequest): String {

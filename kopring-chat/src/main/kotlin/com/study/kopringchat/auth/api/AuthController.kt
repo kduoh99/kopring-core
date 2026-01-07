@@ -9,6 +9,7 @@ import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -24,6 +25,16 @@ class AuthController(
             status = HttpStatus.OK,
             message = "로그인 성공",
             data = authService.login(request)
+        )
+    }
+
+    @PostMapping("/logout")
+    override fun logout(@RequestHeader("Authorization") accessToken: String): BaseResponse<Unit> {
+        authService.logout(accessToken)
+
+        return BaseResponse(
+            status = HttpStatus.OK,
+            message = "로그아웃 성공"
         )
     }
 

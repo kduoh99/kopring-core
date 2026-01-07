@@ -84,6 +84,10 @@ class JwtUtils(
         return UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
     }
 
+    fun getExpiration(token: String): Long =
+        Jwts.parser().verifyWith(secretKey).build()
+            .parseSignedClaims(token).payload.expiration.time
+
     fun refreshAccessToken(member: Member): String =
         "Bearer " + createToken(member, jwtProperties.accessExpired, TOKEN_TYPE_ACCESS)
 }
