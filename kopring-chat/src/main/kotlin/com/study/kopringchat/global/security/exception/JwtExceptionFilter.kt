@@ -1,7 +1,7 @@
 package com.study.kopringchat.global.security.exception
 
 import com.study.kopringchat.global.exception.CustomException
-import com.study.kopringchat.global.exception.ErrorResponse
+import com.study.kopringchat.global.exception.ErrorResponseHandler
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -10,7 +10,7 @@ import org.springframework.web.filter.OncePerRequestFilter
 
 @Component
 class JwtExceptionFilter(
-    private val errorResponse: ErrorResponse
+    private val errorResponseHandler: ErrorResponseHandler
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
@@ -21,7 +21,7 @@ class JwtExceptionFilter(
         try {
             filterChain.doFilter(request, response)
         } catch (e: CustomException) {
-            errorResponse.send(response, e.errorCode)
+            errorResponseHandler.handle(response, e.errorCode)
         }
     }
 }

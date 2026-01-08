@@ -3,7 +3,7 @@ package com.study.kopringchat.global.config
 import com.study.kopringchat.global.security.exception.JwtErrorCode
 import com.study.kopringchat.global.security.exception.JwtExceptionFilter
 import com.study.kopringchat.global.security.jwt.JwtAuthenticationFilter
-import com.study.kopringchat.global.exception.ErrorResponse
+import com.study.kopringchat.global.exception.ErrorResponseHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -20,7 +20,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 class SecurityConfig(
     private val jwtAuthenticationFilter: JwtAuthenticationFilter,
     private val jwtExceptionFilter: JwtExceptionFilter,
-    private val errorResponse: ErrorResponse,
+    private val errorResponseHandler: ErrorResponseHandler,
 ) {
 
     @Bean
@@ -40,10 +40,10 @@ class SecurityConfig(
             .addFilterBefore(jwtExceptionFilter, JwtAuthenticationFilter::class.java)
             .exceptionHandling {
                 it.authenticationEntryPoint { _, response, _ ->
-                    errorResponse.send(response, JwtErrorCode.JWT_MISSING)
+                    errorResponseHandler.handle(response, JwtErrorCode.JWT_MISSING)
                 }
                 it.accessDeniedHandler { _, response, _ ->
-                    errorResponse.send(response, JwtErrorCode.JWT_ACCESS_DENIED)
+                    errorResponseHandler.handle(response, JwtErrorCode.JWT_ACCESS_DENIED)
                 }
             }
             .build()

@@ -8,15 +8,21 @@ import org.springframework.stereotype.Component
 import java.nio.charset.StandardCharsets
 
 @Component
-class ErrorResponse(
+class ErrorResponseHandler(
     private val objectMapper: ObjectMapper
 ) {
-    fun send(response: HttpServletResponse, errorCode: CustomErrorCode) {
-        val baseResponse = BaseResponse<Unit>(errorCode)
-
+    fun handle(response: HttpServletResponse, errorCode: CustomErrorCode) {
         response.status = errorCode.status.value()
         response.contentType = MediaType.APPLICATION_JSON_VALUE
         response.characterEncoding = StandardCharsets.UTF_8.name()
-        response.writer.write(objectMapper.writeValueAsString(baseResponse.body))
+        response.writer.write(
+            objectMapper.writeValueAsString(
+                BaseResponse<Unit>(
+                    status = errorCode.status,
+                    state = errorCode.state,
+                    message = errorCode.message
+                )
+            )
+        )
     }
 }
